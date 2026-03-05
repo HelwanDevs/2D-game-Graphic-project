@@ -44,8 +44,11 @@ TagManager:
   - name: Background
     uniqueID: 3482485513
     locked: 0
-  - name: play
+  - name: surrounding
     uniqueID: 1343324605
+    locked: 0
+  - name: Playables
+    uniqueID: 314788815
     locked: 0
   m_RenderingLayers:
   - Default
