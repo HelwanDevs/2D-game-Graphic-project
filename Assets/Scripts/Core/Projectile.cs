@@ -2,18 +2,29 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    /*public float speed = 20f;
     private Rigidbody2D rb;
-
-    void Start()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.linearVelocity = transform.right * speed;
-    }*/
+    }
 
-     void OnTriggerEnter2D(Collider2D hitInfo)
+    void FixedUpdate()
+    {
+        if (rb != null)
+        {
+            rb.AddForce(new Vector2(WindSystem.windForce, 0f), ForceMode2D.Force);
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D hitInfo)
     {
         Debug.Log(hitInfo.name);
+
+        Animator hitAnimator = hitInfo.GetComponent<Animator>();
+        if (hitAnimator != null)
+        {
+            hitAnimator.SetTrigger("isHit");
+        }
 
         Destroy(gameObject);
     }
