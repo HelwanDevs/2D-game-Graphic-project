@@ -25,7 +25,7 @@ public class TurnManager : MonoBehaviour
     IEnumerator TurnSwitching()
     {
         switching = true; 
-        yield return new WaitForSeconds(2f); // wait for the projectile to land and animations to finish
+        yield return new WaitForSeconds(0.3f); // wait for the projectile to land and animations to finish
 
         currPlayer = (currPlayer == 1) ? 2 : 1;
         SetTurn(currPlayer);
