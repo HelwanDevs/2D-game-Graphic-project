@@ -3,16 +3,27 @@ using System.Collections;
 
 public class TurnManager : MonoBehaviour
 {
+    public static TurnManager Instance { get; private set; }
+
     public ProjectileSpawner player1; // Hager
     public ProjectileSpawner player2; // Mariam
 
-    private int currPlayer = 1;
+    public int currPlayer = 1;
     private bool switching = false;
 
-    private void Start()
+
+    void Awake()
     {
-        SetTurn(currPlayer);
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
     }
+
+    public void SetStartingTurn(int playerNumber)
+    {
+        currPlayer = playerNumber;
+        SetTurn(playerNumber);
+    }
+
 
     public void NextTurn()
     {

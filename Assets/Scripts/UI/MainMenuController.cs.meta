@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 8d967ef9ebddaca48a413d0fdd4bcf2f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - mainButtons: {instanceID: 0}
+  - gameModePanel: {instanceID: 0}
+  - howToPlayPanel: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

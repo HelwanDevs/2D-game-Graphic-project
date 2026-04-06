@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    public float damage = 10f;
     private Rigidbody2D rb;
     private void Awake()
     {
@@ -18,12 +19,14 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D hitInfo)
     {
-        Debug.Log(hitInfo.name);
-
-        Animator hitAnimator = hitInfo.GetComponent<Animator>();
-        if (hitAnimator != null)
+        IDamageable damageable = hitInfo.GetComponent<IDamageable>();
+        if (damageable != null)
         {
-            hitAnimator.SetTrigger("isHit");
+            damageable.TakeDamage(100);
+
+            Animator hitAnimator = hitInfo.GetComponent<Animator>();
+            if (hitAnimator != null)
+                hitAnimator.SetTrigger("isHit");
         }
 
         Destroy(gameObject);
