@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public enum PlayerID { Player1, Player2 }
     public static GameManager Instance { get; private set; }
 
     [Header("Computer")]
@@ -88,17 +89,8 @@ public class GameManager : MonoBehaviour
         if (input != null) input.enabled = enabled;
     }
 
-    public enum PlayerID { Player1, Player2 }
 
-    //public void OnPlayerDied(PlayerID loser)
-    //{
-    //    PlayerID winner = loser == PlayerID.Player1
-    //        ? PlayerID.Player2
-    //        : PlayerID.Player1;
 
-    //    Debug.Log($"{winner} wins!");
-    //    Invoke(nameof(LoadMainMenu), 3f);
-    //}
 
     void LoadMainMenu()
     {
@@ -107,8 +99,8 @@ public class GameManager : MonoBehaviour
 
     public void OnPlayerDied(PlayerID loser)
     {
-        string winner = loser == PlayerID.Player1 ? "Player 2" : "Player 1";
-        WinUI.Instance.ShowWinner(winner);
+        GameSettings.winnerName = loser == PlayerID.Player1 ? "Player 2" : "Player 1";
+        SceneManager.LoadScene("Win_Scene");
     }
 
     public Transform GetPlayer1Transform() => player1.transform;

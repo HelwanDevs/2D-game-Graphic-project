@@ -22,7 +22,7 @@ public class Projectile : MonoBehaviour
         IDamageable damageable = hitInfo.GetComponent<IDamageable>();
         if (damageable != null)
         {
-            damageable.TakeDamage(100);
+            damageable.TakeDamage(damage);
 
             Animator hitAnimator = hitInfo.GetComponent<Animator>();
             if (hitAnimator != null)

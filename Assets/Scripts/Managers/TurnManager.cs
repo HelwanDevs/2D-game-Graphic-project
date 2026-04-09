@@ -11,6 +11,17 @@ public class TurnManager : MonoBehaviour
     public int currPlayer = 1;
     private bool switching = false;
 
+    void Start()
+    {
+        int startPlayer = GameSettings.humanPlaysAsPlayer1 ? 1 : 2;
+
+        // in 2P mode always start with player 1
+        if (!GameSettings.isSinglePlayer)
+            startPlayer = 1;
+
+        SetStartingTurn(startPlayer);
+    }
+
 
     void Awake()
     {
