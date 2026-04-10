@@ -16,6 +16,9 @@ public class ProjectileSpawner : MonoBehaviour
     public bool canShoot = false;
     private bool forceIncreasing = true;
 
+
+  
+
     void Start()
     {
         currForce = minForce;
@@ -67,9 +70,13 @@ public class ProjectileSpawner : MonoBehaviour
         yield return new WaitForSeconds(0.7f);
 
         GameObject projectile = Instantiate(ProjectilePrefab, FirePoint.position, FirePoint.rotation);
+        Projectile p = projectile.GetComponent<Projectile>();
+        p.shooterPlayer = turnManager.currPlayer;
         Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
         if (rb != null)
             rb.AddForce(direction * force, ForceMode2D.Impulse);
+        AudioManager.instance.PlaySFX(AudioManager.instance.shooting);
+
 
         Animator.SetBool("isThrowing", false);
         currForce = minForce;

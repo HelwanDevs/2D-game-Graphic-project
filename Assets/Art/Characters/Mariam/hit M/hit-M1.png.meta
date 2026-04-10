@@ -5,18 +5,6 @@ TextureImporter:
   - first:
       213: -1042142250326295541
     second: hit-M1_0
-  - first:
-      213: 8298171413157023567
-    second: hit-M1_1
-  - first:
-      213: 5099012809171039050
-    second: hit-M1_2
-  - first:
-      213: 7157064449913138050
-    second: hit-M1_3
-  - first:
-      213: -4769884080115594480
-    second: hit-M1_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,6 +97,19 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
     buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -128,10 +129,10 @@ TextureImporter:
       name: hit-M1_0
       rect:
         serializedVersion: 2
-        x: 104
-        y: 415
-        width: 23
-        height: 37
+        x: 11
+        y: 36
+        width: 392
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -142,94 +143,6 @@ TextureImporter:
       bones: []
       spriteID: b0cffd315219981f0800000000000000
       internalID: -1042142250326295541
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: hit-M1_1
-      rect:
-        serializedVersion: 2
-        x: 114
-        y: 415
-        width: 29
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f4f86864fe6092370800000000000000
-      internalID: 8298171413157023567
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: hit-M1_2
-      rect:
-        serializedVersion: 2
-        x: 267
-        y: 440
-        width: 36
-        height: 68
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a437ecb522553c640800000000000000
-      internalID: 5099012809171039050
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: hit-M1_3
-      rect:
-        serializedVersion: 2
-        x: 292
-        y: 431
-        width: 24
-        height: 74
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 28b26ab8230035360800000000000000
-      internalID: 7157064449913138050
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: hit-M1_4
-      rect:
-        serializedVersion: 2
-        x: 12
-        y: 40
-        width: 430
-        height: 388
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 01b4be873b7fdcdb0800000000000000
-      internalID: -4769884080115594480
       vertices: []
       indices: 
       edges: []
@@ -249,10 +162,6 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       hit-M1_0: -1042142250326295541
-      hit-M1_1: 8298171413157023567
-      hit-M1_2: 5099012809171039050
-      hit-M1_3: 7157064449913138050
-      hit-M1_4: -4769884080115594480
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

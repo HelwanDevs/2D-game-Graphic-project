@@ -105,6 +105,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 438f4f88065575a49bbe502c97e7b6e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
+  damage: 10
+  turnManager: {fileID: 0}
 --- !u!1 &3429197541629333444
 GameObject:
   m_ObjectHideFlags: 0
