@@ -11,7 +11,6 @@ public class Projectile : MonoBehaviour
 
 
 
-    private bool hasHit = false;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -30,7 +29,6 @@ public class Projectile : MonoBehaviour
         IDamageable damageable = hitInfo.GetComponent<IDamageable>();
         if (damageable != null)
         {
-            hasHit = true;
             AudioManager.instance.PlaySFX(AudioManager.instance.hit);
 
             if (hitInfo.CompareTag("Player 1 (Hager)"))
