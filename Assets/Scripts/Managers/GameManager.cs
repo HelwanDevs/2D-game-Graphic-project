@@ -45,9 +45,9 @@ public class GameManager : MonoBehaviour
         // set difficulty based on scene
         switch (scene.name)
         {
-            case "Level_Easy": computerAccuracy = 0.4f; break;
-            case "Level_Medium": computerAccuracy = 0.6f; break;
-            case "Level_Hard": computerAccuracy = 0.8f; break;
+            case "Level_Easy": computerAccuracy = 0.5f; break;
+            case "Level_Medium": computerAccuracy = 0.8f; break;
+            case "Level_Hard": computerAccuracy = 1.0f; break;
         }
         Debug.Log($"[GameManager] Scene: {scene.name}, computerAccuracy: {computerAccuracy}");
 
