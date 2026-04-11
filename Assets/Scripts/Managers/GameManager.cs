@@ -37,10 +37,19 @@ public class GameManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "MainMenu") return;
+        if (scene.name == "Main_Menu" || scene.name == "Win_Scene") return;
 
         player1 = GameObject.Find("Player 1 (Hager)");
         player2 = GameObject.Find("Player 2 (Mariam)");
+
+        // set difficulty based on scene
+        switch (scene.name)
+        {
+            case "Level_Easy": computerAccuracy = 0.4f; break;
+            case "Level_Medium": computerAccuracy = 0.6f; break;
+            case "Level_Hard": computerAccuracy = 0.8f; break;
+        }
+        Debug.Log($"[GameManager] Scene: {scene.name}, computerAccuracy: {computerAccuracy}");
 
         SetupGameMode();
     }
@@ -99,7 +108,24 @@ public class GameManager : MonoBehaviour
 
     public void OnPlayerDied(PlayerID loser)
     {
-        GameSettings.winnerName = loser == PlayerID.Player1 ? "Player 2" : "Player 1";
+        GameSettings.currentScene = SceneManager.GetActiveScene().name;
+
+        if (GameSettings.isSinglePlayer)
+        {
+            // check if the player loses
+            bool humanIsPlayer1 = GameSettings.humanPlaysAsPlayer1;
+            bool humanLost = (humanIsPlayer1 && loser == PlayerID.Player1) ||
+                             (!humanIsPlayer1 && loser == PlayerID.Player2);
+
+            GameSettings.humanLost = humanLost;
+            GameSettings.winnerName = humanLost ? "Computer" : "You";
+        }
+        else
+        {
+            GameSettings.humanLost = false;
+            GameSettings.winnerName = loser == PlayerID.Player1 ? "Player 2" : "Player 1";
+        }
+
         SceneManager.LoadScene("Win_Scene");
     }
 

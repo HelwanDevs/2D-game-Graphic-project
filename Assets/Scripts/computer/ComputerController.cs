@@ -22,6 +22,7 @@ public class ComputerController : MonoBehaviour
         Debug.Log($"[Computer] playerNumber: {playerNumber}");
         Debug.Log($"[Computer] humanPlaysAsPlayer1: {GameSettings.humanPlaysAsPlayer1}");
         Debug.Log($"[Computer] target: {target.name}");
+        Debug.Log($"[Computer] accuracy set to: {accuracy}");
 
         StartCoroutine(ComputerLoop());
     }

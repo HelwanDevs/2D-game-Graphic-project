@@ -42,7 +42,7 @@ public class Projectile : MonoBehaviour
                 AudioManager.instance.PlaySFX(AudioManager.instance.secondPlayerHit);
             }
 
-            damageable.TakeDamage(damage);
+            damageable.TakeDamage(100);
 
             Animator hitAnimator = hitInfo.GetComponent<Animator>();
             if (hitAnimator != null)

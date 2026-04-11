@@ -57,15 +57,21 @@ public class MainMenuController : MonoBehaviour
     public void SelectPlayer1()
     {
         GameSettings.isSinglePlayer = true;
-        GameSettings.humanPlaysAsPlayer1 = true;  // and this
-        SceneManager.LoadScene("Level_Easy"); 
+        GameSettings.humanPlaysAsPlayer1 = true;
+        SceneManager.LoadScene("Level_Easy");
     }
 
     public void SelectPlayer2()
     {
         GameSettings.isSinglePlayer = true;
         GameSettings.humanPlaysAsPlayer1 = false;
-        SceneManager.LoadScene("Level_Easy");   //this one too
+        SceneManager.LoadScene("Level_Easy");
+    }
+
+    public void Start2Player()
+    {
+        GameSettings.isSinglePlayer = false;
+        SceneManager.LoadScene("Level_Easy"); // 2P always starts at Easy
     }
 
 

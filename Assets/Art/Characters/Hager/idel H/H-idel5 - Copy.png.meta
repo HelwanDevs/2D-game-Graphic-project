@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e3230b010d6d0aa4c920758be20dd517
+guid: af675cf5d279011418922b405927aea1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6655474960787109614
-    second: FCAI BATTLE_0
+      213: 1127364879983663850
+    second: H-idel5 - Copy_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: FCAI BATTLE_0
+      name: H-idel5 - Copy_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1587
-        height: 2245
+        x: 101
+        y: 18
+        width: 184
+        height: 494
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 21907ce09c003a3a0800000000000000
-      internalID: -6655474960787109614
+      spriteID: aea5da3a26435af00800000000000000
+      internalID: 1127364879983663850
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      FCAI BATTLE_0: -6655474960787109614
+      H-idel5 - Copy_0: 1127364879983663850
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
