@@ -5,4 +5,11 @@ public static class GameSettings
     public static string winnerName = "";
     public static string currentScene = "";
     public static bool humanLost = false;
+
+
+
+
+
+    public static bool isNetworkMultiplayer = false;
+    public static bool isHost = true;
 }
