@@ -20,6 +20,9 @@
 </li></ul>
 <blockquote><strong>Pro Tip:</strong> Watch the wind meter! A sudden gust can turn your top-tier MacBook into a flying paperweight that misses the target completely.
 </blockquote>
+<h3><strong>Join the Battle</strong></h3>
+<p>Ready to compile your victory and throw some hardware? You can play <strong>FCAI-Battle</strong> directly online in your browser, or download the game for your machine over at: <a href="https://helwandevs.itch.io/fcai-battle" target="_blank"><strong>helwandevs.itch.io/fcai-battle</strong></a>
+</p>
 <p><br></p>
 <p><br></p>
 <p><br></p>
