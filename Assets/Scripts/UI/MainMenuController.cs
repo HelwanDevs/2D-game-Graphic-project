@@ -1,9 +1,13 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Unity.Netcode;
+using TMPro;
 
 public class MainMenuController : MonoBehaviour
 {
+    public TMP_InputField ipAdd;
+    public Unity.Netcode.Transports.UTP.UnityTransport transport;
+
     public GameObject mainButtons;
     public GameObject gameModePanel;
     public GameObject howToPlayPanel;
@@ -102,6 +106,10 @@ public class MainMenuController : MonoBehaviour
     {
         GameSettings.isNetworkMultiplayer = true;
         GameSettings.isSinglePlayer = false;
+
+        transport = NetworkManager.Singleton.GetComponent<Unity.Netcode.Transports.UTP.UnityTransport>();
+        string targetIP = string.IsNullOrEmpty(ipAdd.text) ? "127.0.0.1" : ipAdd.text;
+        transport.SetConnectionData(targetIP, 7777);
         NetworkManager.Singleton.StartClient();
     }
 
