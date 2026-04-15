@@ -1,8 +1,13 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Unity.Netcode;
+using TMPro;
 
 public class MainMenuController : MonoBehaviour
 {
+    public TMP_InputField ipAdd;
+    public Unity.Netcode.Transports.UTP.UnityTransport transport;
+
     public GameObject mainButtons;
     public GameObject gameModePanel;
     public GameObject howToPlayPanel;
@@ -39,12 +44,16 @@ public class MainMenuController : MonoBehaviour
     public void StartOnePlayer()
     {
         GameSettings.isSinglePlayer = true;
+        GameSettings.isNetworkMultiplayer = false;
+
         SceneManager.LoadScene("Level_Easy"); // or difficulty selector later
     }
 
     public void StartTwoPlayer()
     {
         GameSettings.isSinglePlayer = false;
+        GameSettings.isNetworkMultiplayer = false;
+
         SceneManager.LoadScene("Level_Easy");   // change this when you handle the scences يا ملكة
     }
 
@@ -58,6 +67,8 @@ public class MainMenuController : MonoBehaviour
     {
         GameSettings.isSinglePlayer = true;
         GameSettings.humanPlaysAsPlayer1 = true;
+        GameSettings.isNetworkMultiplayer = false;
+
         SceneManager.LoadScene("Level_Easy");
     }
 
@@ -65,13 +76,41 @@ public class MainMenuController : MonoBehaviour
     {
         GameSettings.isSinglePlayer = true;
         GameSettings.humanPlaysAsPlayer1 = false;
+        GameSettings.isNetworkMultiplayer = false;
+
         SceneManager.LoadScene("Level_Easy");
     }
 
     public void Start2Player()
     {
         GameSettings.isSinglePlayer = false;
+        GameSettings.isNetworkMultiplayer = false;
         SceneManager.LoadScene("Level_Easy"); // 2P always starts at Easy
+    }
+
+    public void HostNetwork()
+    {
+        if (NetworkManager.Singleton != null)
+        {
+            NetworkManager.Singleton.Shutdown();
+        }
+        GameSettings.isNetworkMultiplayer = true;
+        GameSettings.isSinglePlayer = false;
+        GameSettings.isHost = true;
+        NetworkManager.Singleton.StartHost();
+
+        NetworkManager.Singleton.SceneManager.LoadScene("Level_Easy", LoadSceneMode.Single);
+    }
+
+    public void JoinNetwork()
+    {
+        GameSettings.isNetworkMultiplayer = true;
+        GameSettings.isSinglePlayer = false;
+
+        transport = NetworkManager.Singleton.GetComponent<Unity.Netcode.Transports.UTP.UnityTransport>();
+        string targetIP = string.IsNullOrEmpty(ipAdd.text) ? "127.0.0.1" : ipAdd.text;
+        transport.SetConnectionData(targetIP, 7777);
+        NetworkManager.Singleton.StartClient();
     }
 
 

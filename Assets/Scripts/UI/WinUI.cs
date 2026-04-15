@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using Unity.Netcode;
 
 public class WinUI : MonoBehaviour
 {
@@ -9,10 +10,18 @@ public class WinUI : MonoBehaviour
 
     void Start()
     {
-        winnerText.text = $"{GameSettings.winnerName} Wins!";
+        if (GameSettings.winnerName != null)
+        {
+            winnerText.text = $"{GameSettings.winnerName} Wins!";
+        }
+        else if (winnerText == null)
+        {
+
+        }
 
         // show next level only if the player won and next level exists
         nextLevelButton.SetActive(
+            !GameSettings.isNetworkMultiplayer &&
             GameSettings.isSinglePlayer &&
             !GameSettings.humanLost &&
             GetNextScene() != null
@@ -26,10 +35,7 @@ public class WinUI : MonoBehaviour
             SceneManager.LoadScene(next);
     }
 
-    public void GoToMainMenu()
-    {
-        SceneManager.LoadScene("Main_Menu");
-    }
+
 
     string GetNextScene()
     {

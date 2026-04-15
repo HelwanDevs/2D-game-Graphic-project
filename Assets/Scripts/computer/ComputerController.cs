@@ -33,7 +33,7 @@ public class ComputerController : MonoBehaviour
         {
             Debug.Log($"[Computer] Waiting... currPlayer: {TurnManager.Instance.currPlayer}, myNumber: {playerNumber}");
             yield return new WaitUntil(() =>
-                TurnManager.Instance.currPlayer == playerNumber);
+                TurnManager.Instance.currPlayer.Value == playerNumber);
 
             Debug.Log("[Computer] My turn! Shooting...");
             yield return new WaitForSeconds(reactionDelay);
