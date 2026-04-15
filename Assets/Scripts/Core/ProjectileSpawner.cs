@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Unity.Netcode;
 
-public class ProjectileSpawner : MonoBehaviour
+public class ProjectileSpawner : NetworkBehaviour
 {
     public Transform FirePoint;
     public GameObject ProjectilePrefab;
@@ -17,7 +18,7 @@ public class ProjectileSpawner : MonoBehaviour
     private bool forceIncreasing = true;
 
 
-  
+
 
     void Start()
     {
@@ -26,7 +27,11 @@ public class ProjectileSpawner : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log($"{name} | canShoot: {canShoot} | IsOwner: {IsOwner} | currPlayer: {TurnManager.Instance.currPlayer.Value}");
         if (!canShoot) return;
+        if (GameSettings.isNetworkMultiplayer && !IsOwner) return;
+        int netId = gameObject.name.Contains("Player 1") ? 1 : 2;
+        if (TurnManager.Instance.currPlayer.Value != netId) return;
 
         if (Input.GetButton("Fire1"))
         {
@@ -57,7 +62,14 @@ public class ProjectileSpawner : MonoBehaviour
 
         if (Input.GetButtonUp("Fire1") && canShoot)
         {
-            StartCoroutine(Shoot(FirePoint.right, currForce));
+            if (GameSettings.isNetworkMultiplayer)
+            {
+                ShootRpc(FirePoint.right, currForce);//to ask host if can shoot
+            }
+            else
+            {
+                StartCoroutine(Shoot(FirePoint.right, currForce));
+            }
             if (forceIndicator != null)
                 forceIndicator.Hide();
         }
@@ -71,10 +83,16 @@ public class ProjectileSpawner : MonoBehaviour
 
         GameObject projectile = Instantiate(ProjectilePrefab, FirePoint.position, FirePoint.rotation);
         Projectile p = projectile.GetComponent<Projectile>();
-        p.shooterPlayer = turnManager.currPlayer;
+        p.shooterPlayer = turnManager.currPlayer.Value;
         Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
         if (rb != null)
             rb.AddForce(direction * force, ForceMode2D.Impulse);
+
+
+        if (GameSettings.isNetworkMultiplayer)
+        {
+            projectile.GetComponent<NetworkObject>().Spawn();
+        }
         AudioManager.instance.PlaySFX(AudioManager.instance.shooting);
 
 
@@ -82,8 +100,10 @@ public class ProjectileSpawner : MonoBehaviour
         currForce = minForce;
 
         if (turnManager != null)
-            turnManager.NextTurn();
-
+            if (!GameSettings.isNetworkMultiplayer || IsServer)
+            {
+                turnManager.NextTurn();
+            }
         currForce = minForce;
         forceIncreasing = true;
     }
@@ -121,10 +141,22 @@ public class ProjectileSpawner : MonoBehaviour
         if (forceIndicator != null)
             forceIndicator.Hide();
     }
+
+
+
+
+
+    //local network stuff
+    [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
+    void ShootRpc(Vector2 direction, float force)
+    {
+        StartCoroutine(Shoot(direction, force));
+    }
+
+
+
+
 }
-
-
-
 
 
 

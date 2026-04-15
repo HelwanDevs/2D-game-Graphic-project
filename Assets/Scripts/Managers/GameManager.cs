@@ -1,3 +1,5 @@
+using System.Collections;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -58,6 +60,14 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log($"[GameManager] isSinglePlayer: {GameSettings.isSinglePlayer}");
         Debug.Log($"[GameManager] humanPlaysAsPlayer1: {GameSettings.humanPlaysAsPlayer1}");
+        Debug.Log($"[GameManager] isNetworkMultiplayer: {GameSettings.isNetworkMultiplayer}");
+
+
+        if (GameSettings.isNetworkMultiplayer)
+        {
+            StartCoroutine(SetupNetworkGame());
+
+        }
 
         if (player1 == null || player2 == null)
         {
@@ -98,6 +108,25 @@ public class GameManager : MonoBehaviour
         if (input != null) input.enabled = enabled;
     }
 
+    IEnumerator SetupNetworkGame()
+    {
+        yield return new WaitUntil(() => NetworkManager.Singleton != null && NetworkManager.Singleton.IsServer);
+
+        var p1 = player1.GetComponent<NetworkObject>();
+        var p2 = player2.GetComponent<NetworkObject>();
+
+        yield return new WaitUntil(() => p1.IsSpawned && p2.IsSpawned);
+
+        p1.ChangeOwnership(NetworkManager.Singleton.LocalClientId);
+
+        yield return new WaitUntil(() => NetworkManager.Singleton.ConnectedClientsList.Count > 1);
+
+
+        p2.ChangeOwnership(NetworkManager.Singleton.ConnectedClientsList[1].ClientId);
+        Debug.Log($"Ownership Assigned: Host owns {player1.name}, Client {NetworkManager.Singleton.ConnectedClientsList[1].ClientId} owns {player2.name}");
+
+    }
+
 
 
 
@@ -131,4 +160,21 @@ public class GameManager : MonoBehaviour
 
     public Transform GetPlayer1Transform() => player1.transform;
     public Transform GetPlayer2Transform() => player2.transform;
+
+
+    void OnApplicationQuit()
+    {
+        if (NetworkManager.Singleton != null &&
+            NetworkManager.Singleton.IsListening)
+        {
+            NetworkManager.Singleton.Shutdown();
+        }
+    }
+    void OnDestroy()
+    {
+        if (NetworkManager.Singleton != null)
+        {
+            NetworkManager.Singleton.Shutdown();
+        }
+    }
 }

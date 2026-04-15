@@ -1,6 +1,7 @@
 using UnityEngine;
+using Unity.Netcode;
 
-public class Projectile : MonoBehaviour
+public class Projectile : NetworkBehaviour
 {
 
 
@@ -26,6 +27,7 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D hitInfo)
     {
+        if (GameSettings.isNetworkMultiplayer && !IsServer) return;
         IDamageable damageable = hitInfo.GetComponent<IDamageable>();
         if (damageable != null)
         {
@@ -45,7 +47,7 @@ public class Projectile : MonoBehaviour
             Animator hitAnimator = hitInfo.GetComponent<Animator>();
             if (hitAnimator != null)
                 hitAnimator.SetTrigger("isHit");
-            Destroy(gameObject);
+            DestroyP(gameObject);
             return;
         }
 
@@ -57,7 +59,7 @@ public class Projectile : MonoBehaviour
 
     void MissHitSounds()
     {
-        if (shooterPlayer !=1)
+        if (shooterPlayer != 1)
         {
             AudioManager.instance.PlaySFX(AudioManager.instance.firstPlayerNotHit);
 
@@ -74,6 +76,31 @@ public class Projectile : MonoBehaviour
 
         }
 
-        Destroy(gameObject);
+        DestroyP(gameObject);
+    }
+
+
+    void DestroyP(GameObject obj)
+    {
+        if (GameSettings.isNetworkMultiplayer)
+        {
+            if (IsServer)
+            {
+                NetworkObject networkObj = obj.GetComponent<NetworkObject>();
+                if (networkObj != null)
+                {
+                    networkObj.Despawn();
+                }
+                else
+                {
+                    Debug.LogWarning("No NetworkObject found on projectile for despawning.");
+                    Destroy(obj);
+                }
+            }
+        }
+        else
+        {
+            Destroy(obj);
+        }
     }
 }
